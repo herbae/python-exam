@@ -115,10 +115,8 @@ questoes = GeradorQuestao([modelo1, modelo2, modelo3]).gerarQuestoes(1, 4)
 questoes += GeradorQuestao([modelo4, modelo5, modelo6]).gerarQuestoes(6, 8)
 questoes += GeradorQuestao([modelo7]).gerarQuestoes(9, 10)
 
-questoesteste = GeradorQuestao([modelo7]).gerarQuestoes(1, 5)
-
 respostas = []
-for q in questoesteste:
+for q in questoes:
     q[1].imprimir()
     respostas.append((q[0], q[1].responder()))
 
