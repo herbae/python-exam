@@ -87,15 +87,38 @@ elif %d <= %d:
 
 ''')
 
+modelo7 = ModeloQuestao(
+    [lambda: random.choice(['banana', 'maçã', 'laranja', 'abacaxi']),
+        lambda: random.choice(['amarela', 'vermelha', 'laranja']),
+        lambda: random.choice(['nome', 'cor'])],
+    lambda x, y, z: x if z == 'nome' else y,
+    lambda *lista: list(lista) +
+        ['fruta[cor]', 'fruta[nome]', 'cor', 'nome', 'vermelha', 'amarela'],
+'''
+Questão %d: o que vai ser impresso quando o código abaixo for executado?
+
+fruta = {
+    "nome": "%s",
+    "cor": "%s"
+}
+
+print(fruta[%s])
+
+''')
+
+
 print('Bem vindo ao Exame 1 de Python (beta)')
 
 nomeAluno = input('Digite seu nome, caríssimo: ')
 
-questoes = GeradorQuestao([modelo1, modelo2, modelo3]).gerarQuestoes(1, 5)
-questoes += GeradorQuestao([modelo4, modelo5, modelo6]).gerarQuestoes(6, 10)
+questoes = GeradorQuestao([modelo1, modelo2, modelo3]).gerarQuestoes(1, 4)
+questoes += GeradorQuestao([modelo4, modelo5, modelo6]).gerarQuestoes(6, 8)
+questoes += GeradorQuestao([modelo7]).gerarQuestoes(9, 10)
+
+questoesteste = GeradorQuestao([modelo7]).gerarQuestoes(1, 5)
 
 respostas = []
-for q in questoes:
+for q in questoesteste:
     q[1].imprimir()
     respostas.append((q[0], q[1].responder()))
 
