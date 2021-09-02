@@ -42,13 +42,14 @@ print(x - y * z)
 ''')
 
 modelo4 = ModeloQuestao(
-    [lambda: random.randrange(2) == 1, lambda: random.randrange(2) == 1],
-    lambda x, y: x and y,
+    [lambda: random.randrange(2) == 1, lambda: random.choice(['and', 'or']),
+        lambda: random.randrange(2) == 1],
+    lambda x, y, z: x and z if y == 'and' else x or z,
     lambda *_: ['True', 'False', 'true', 'false', '0'],
 '''
 Questão %d: o que vai ser impresso quando o código abaixo for executado?
 
-print(%s and %s)
+print(%s %s %s)
 
 ''')
 
@@ -115,8 +116,10 @@ questoes = GeradorQuestao([modelo1, modelo2, modelo3]).gerarQuestoes(1, 4)
 questoes += GeradorQuestao([modelo4, modelo5, modelo6]).gerarQuestoes(6, 8)
 questoes += GeradorQuestao([modelo7]).gerarQuestoes(9, 10)
 
+qs = GeradorQuestao([modelo4]).gerarQuestoes(1, 5)
+
 respostas = []
-for q in questoes:
+for q in qs:
     q[1].imprimir()
     respostas.append((q[0], q[1].responder()))
 
