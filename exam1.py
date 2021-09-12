@@ -107,16 +107,29 @@ print(fruta[%s])
 
 ''')
 
+modelo8 = ModeloQuestao(
+    [lambda: random.randrange(50)],
+    lambda x: str(x),
+    lambda x: [x, str(x), "'" + str(x) + "'", 'str(variavel)', 'variavel', 'nada será impresso'],
+'''
+Questão %d: o que vai ser impresso quando o código abaixo for executado?
+
+variavel = %d
+
+print(str(variavel))
+
+''')
+
 
 print('Bem vindo ao Exame 1 de Python (beta)')
 
 nomeAluno = input('Digite seu nome, caríssimo: ')
 
-questoes = GeradorQuestao([modelo1, modelo2, modelo3]).gerarQuestoes(1, 4)
-questoes += GeradorQuestao([modelo4, modelo5, modelo6]).gerarQuestoes(6, 8)
-questoes += GeradorQuestao([modelo7]).gerarQuestoes(9, 10)
+questoes = GeradorQuestao([modelo1, modelo2, modelo3]).gerarQuestoes(1, 3)
+questoes += GeradorQuestao([modelo4, modelo5, modelo6]).gerarQuestoes(4, 6)
+questoes += GeradorQuestao([modelo7, modelo8]).gerarQuestoes(7, 10)
 
-qs = GeradorQuestao([modelo4]).gerarQuestoes(1, 5)
+qs = GeradorQuestao([modelo8]).gerarQuestoes(1, 5)
 
 respostas = []
 for q in qs:
